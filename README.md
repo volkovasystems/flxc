@@ -1,2 +1,2 @@
 # flxc
-Flatten multi-line command string.
+Flatten and run multi-line executable shell script file.

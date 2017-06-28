@@ -1,0 +1,47 @@
+{
+  "name": "flxc",
+  "version": "0.0.0",
+  "description": "Flatten and run multi-line executable shell script file.",
+  "main": "flxc.js",
+  "option": {
+    "shell": "flxc"
+  },
+  "bin": {
+    "flxc": "run.js"
+  },
+  "scripts": {
+    "test": "mocha flxc-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/volkovasystems/flxc.git"
+  },
+  "keywords": [
+    "flatten",
+    "run",
+    "multi-line",
+    "executable",
+    "shell",
+    "script",
+    "file",
+    "flxc"
+  ],
+  "author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/volkovasystems/flxc/issues"
+  },
+  "homepage": "https://github.com/volkovasystems/flxc#readme",
+  "dependencies": {
+    "depher": "^0.35.0",
+    "detr": "^0.1.0",
+    "falzy": "^0.20.0",
+    "gnaw": "^0.20.0",
+    "kept": "^0.22.0",
+    "lire": "^0.15.0",
+    "pedon": "^0.14.0",
+    "protype": "^0.22.0",
+    "shft": "^0.2.0",
+    "yargs": "^8.0.2"
+  }
+}
