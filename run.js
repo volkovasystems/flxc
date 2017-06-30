@@ -72,14 +72,14 @@ const parameter = yargs
 		`For more information go to, ${ package.homepage }` :
 		"Please read usage and examples carefully." )
 
-	.usage( `Usage: ${ package.option.shell } run <script>` )
+	.usage( `Usage: ${ package.option.shell } execute <script>` )
 
-	.command( "run <script>",
+	.command( "execute <script>",
 		"Execute shell script file using default bash environment." )
 
 	.demand( 1, [ "script" ] )
 
-	.example( "$0 run ./.install.sh",
+	.example( "$0 execute ./.install.sh",
 		"Execute '.install.sh' using bash environment" )
 
 	.option( "sh", {
