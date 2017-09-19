@@ -48,6 +48,7 @@
 	@include:
 		{
 			"path": "path",
+			"pedon": "pedon",
 			"yargs": "yargs"
 		}
 	@end-include
@@ -93,9 +94,7 @@ const parameter = yargs
 
 	.help( "help" )
 
-	.version( function version( ){
-		return package.version;
-	} )
+	.version( )
 
 	.wrap( null )
 
