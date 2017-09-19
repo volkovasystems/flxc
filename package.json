@@ -1,6 +1,6 @@
 {
 	"name": "flxc",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "Flatten and run multi-line executable shell script file.",
 	"main": "flxc.js",
 	"option": {

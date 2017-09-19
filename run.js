@@ -54,6 +54,7 @@
 */
 
 const path = require( "path" );
+const pedon = require( "pedon" );
 const yargs = require( "yargs" );
 
 const DEFAULT_SHELL_INTERPRETER = process.env.DEFAULT_SHELL_INTERPRETER || ( ( ) => {
