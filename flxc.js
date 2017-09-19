@@ -69,11 +69,16 @@ const pedon = require( "pedon" );
 const protype = require( "protype" );
 const shft = require( "shft" );
 
-if( pedon.WINDOWS ){
-	throw new Error( "platform not supported" );
-}
+const DEFAULT_SHELL_INTERPRETER = process.env.DEFAULT_SHELL_INTERPRETER || ( ( ) => {
+	if( pedon.WINDOWS ){
+		return process.env.ComSpec;
 
-const DEFAULT_SHELL_INTERPRETER = process.env.DEFAULT_SHELL_INTERPRETER || "/bin/bash";
+	}else{
+		return "/bin/bash";
+	}
+} )( );
+
+const EXECUTABLE_SCRIPT_FILE_EXTENSION_PATTERN = /\.(?:sh|cmd)$/;
 
 const flxc = function flxc( script, shell, synchronous, option ){
 	/*;
@@ -91,6 +96,15 @@ const flxc = function flxc( script, shell, synchronous, option ){
 		throw new Error( "invalid script file" );
 	}
 
+	if( !EXECUTABLE_SCRIPT_FILE_EXTENSION_PATTERN.test( script ) ){
+		if( pedon.WINDOWS ){
+			script = `${ script }.cmd`;
+
+		}else{
+			script = `${ script }.sh`;
+		}
+	}
+
 	let parameter = shft( arguments );
 
 	shell = depher( parameter, STRING, DEFAULT_SHELL_INTERPRETER );
@@ -102,7 +116,7 @@ const flxc = function flxc( script, shell, synchronous, option ){
 	if( synchronous ){
 		if( kept( script, EXECUTE, true ) ){
 			try{
-				return gnaw( lire( script, true ).replace( /\\\s*$|\n+/gm, " " ), true, option );
+				return gnaw( lire( script, true ).replace( /\^\s*$|\\\s*$|\n+/gm, " " ), true, option );
 
 			}catch( error ){
 				throw new Error( `cannot execute script file, ${ error.stack }` );
@@ -113,7 +127,7 @@ const flxc = function flxc( script, shell, synchronous, option ){
 		}
 
 	}else{
-
+		throw new Error( "non-synchronous version not currently supported" );
 	}
 };
 

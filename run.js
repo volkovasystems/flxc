@@ -36,7 +36,7 @@
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/flxc.git",
 			"shell": "flxc",
-			"command": "run",
+			"command": "execute",
 			"parameter": [ "script" ]
 		}
 	@end-run-module-configuration
@@ -48,21 +48,22 @@
 	@include:
 		{
 			"path": "path",
-			"pedon": "pedon",
 			"yargs": "yargs"
 		}
 	@end-include
 */
 
 const path = require( "path" );
-const pedon = require( "pedon" );
 const yargs = require( "yargs" );
 
-if( pedon.WINDOWS ){
-	throw new Error( "platform not supported" );
-}
+const DEFAULT_SHELL_INTERPRETER = process.env.DEFAULT_SHELL_INTERPRETER || ( ( ) => {
+	if( pedon.WINDOWS ){
+		return process.env.ComSpec;
 
-const DEFAULT_SHELL_INTERPRETER = process.env.DEFAULT_SHELL_INTERPRETER || "/bin/bash";
+	}else{
+		return "/bin/bash";
+	}
+} )( );
 
 const flxc = require( path.resolve( __dirname, "flxc" ) );
 const package = require( path.resolve( __dirname, "package.json" ) );
@@ -79,8 +80,8 @@ const parameter = yargs
 
 	.demand( 1, [ "script" ] )
 
-	.example( "$0 execute ./.install.sh",
-		"Execute '.install.sh' using bash environment" )
+	.example( "$0 execute ./.install",
+		"Execute '.install.*' using a shell environment based on platform" )
 
 	.option( "sh", {
 		"alias": "shell",
