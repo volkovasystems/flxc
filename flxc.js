@@ -69,11 +69,8 @@ const pedon = require( "pedon" );
 const protype = require( "protype" );
 const shft = require( "shft" );
 
-if( pedon.WINDOWS ){
-	throw new Error( "platform not supported" );
-}
-
 const DEFAULT_SHELL_INTERPRETER = process.env.DEFAULT_SHELL_INTERPRETER || "/bin/bash";
+const EXECUTABLE_SCRIPT_FILE_EXTENSION_PATTERN = /\.(?:sh|cmd)$/;
 
 const flxc = function flxc( script, shell, synchronous, option ){
 	/*;
@@ -89,6 +86,15 @@ const flxc = function flxc( script, shell, synchronous, option ){
 
 	if( falzy( script ) || !protype( script, STRING ) ){
 		throw new Error( "invalid script file" );
+	}
+
+	if( !EXECUTABLE_SCRIPT_FILE_EXTENSION_PATTERN.test( script ) ){
+		if( pedon.WINDOWS ){
+			script = `${ script }.cmd`;
+
+		}else{
+			script = `${ script }.sh`;
+		}
 	}
 
 	let parameter = shft( arguments );
@@ -113,7 +119,7 @@ const flxc = function flxc( script, shell, synchronous, option ){
 		}
 
 	}else{
-
+		throw new Error( "non-synchronous version not currently supported" );
 	}
 };
 
