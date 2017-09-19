@@ -56,7 +56,14 @@
 const path = require( "path" );
 const yargs = require( "yargs" );
 
-const DEFAULT_SHELL_INTERPRETER = process.env.DEFAULT_SHELL_INTERPRETER || "/bin/bash";
+const DEFAULT_SHELL_INTERPRETER = process.env.DEFAULT_SHELL_INTERPRETER || ( ( ) => {
+	if( pedon.WINDOWS ){
+		return process.env.ComSpec;
+
+	}else{
+		return "/bin/bash";
+	}
+} )( );
 
 const flxc = require( path.resolve( __dirname, "flxc" ) );
 const package = require( path.resolve( __dirname, "package.json" ) );

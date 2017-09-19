@@ -69,7 +69,15 @@ const pedon = require( "pedon" );
 const protype = require( "protype" );
 const shft = require( "shft" );
 
-const DEFAULT_SHELL_INTERPRETER = process.env.DEFAULT_SHELL_INTERPRETER || "/bin/bash";
+const DEFAULT_SHELL_INTERPRETER = process.env.DEFAULT_SHELL_INTERPRETER || ( ( ) => {
+	if( pedon.WINDOWS ){
+		return process.env.ComSpec;
+
+	}else{
+		return "/bin/bash";
+	}
+} )( );
+
 const EXECUTABLE_SCRIPT_FILE_EXTENSION_PATTERN = /\.(?:sh|cmd)$/;
 
 const flxc = function flxc( script, shell, synchronous, option ){
@@ -108,7 +116,7 @@ const flxc = function flxc( script, shell, synchronous, option ){
 	if( synchronous ){
 		if( kept( script, EXECUTE, true ) ){
 			try{
-				return gnaw( lire( script, true ).replace( /\\\s*$|\n+/gm, " " ), true, option );
+				return gnaw( lire( script, true ).replace( /\^\s*$|\\\s*$|\n+/gm, " " ), true, option );
 
 			}catch( error ){
 				throw new Error( `cannot execute script file, ${ error.stack }` );

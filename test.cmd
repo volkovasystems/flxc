@@ -1,1 +1,1 @@
-pwd
+echo hello
